@@ -54,11 +54,7 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
 
     do {
-      let usePng = options["usePng"] as? Bool
-      guard let usePng = usePng else {
-        try rotateImage.compressJpegData()?.write(to: url)
-        return
-      }
+      let usePng = options["usePng"] as? Bool ?? false
       if usePng {
         try rotateImage.compressPngData?.write(to: url)
       } else {
