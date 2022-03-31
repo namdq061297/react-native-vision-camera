@@ -195,6 +195,7 @@ enum CaptureError {
   case videoNotEnabled
   case photoNotEnabled
   case aborted
+  case orientaionError
   case unknown(message: String? = nil)
 
   var code: String {
@@ -219,6 +220,8 @@ enum CaptureError {
       return "photo-not-enabled"
     case .aborted:
       return "aborted"
+    case .orientaionError:
+      return "cast-orientation-failed"
     case .unknown:
       return "unknown"
     }

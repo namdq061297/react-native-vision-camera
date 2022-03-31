@@ -44,11 +44,29 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
       return
     }
 
+    guard let cgImage = photo.cgImageRepresentation() else {
+      promise.reject(error: .capture(.fileError))
+      return
+    }
+
+    guard let orientation = photo.metadata[kCGImagePropertyOrientation as String] as? NSNumber else {
+        promise.reject(error: .capture(.orientaionError))
+      return
+    }
+
+    guard let uiOrientation = UIImage.Orientation(rawValue: orientation.intValue) else {
+      promise.reject(error: .capture(.fileError))
+      return
+    }
+
+    let image = UIImage(cgImage: cgImage, scale: 1, orientation: uiOrientation)
+
     do {
-      try data.write(to: url)
-      let image = UIImage(data: data)
-      let width = image?.size.width
-      let height = image?.size.height
+//      try data.write(to: url)
+      try image.jpegData(compressionQuality: 1.0)?.write(to: url)
+
+      let width = image.size.width
+      let height = image.size.height
 //      let exif = photo.metadata["{Exif}"] as? [String: Any]
 //      let width = exif?["PixelXDimension"]
 //      let height = exif?["PixelYDimension"]
