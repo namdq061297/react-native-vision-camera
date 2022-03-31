@@ -12,7 +12,11 @@ extension UIImage {
   var height: CGFloat { return size.height }
   var aspectRatio: CGFloat { return width == 0 ? 0 : height / width }
   var byte: Int { return pngData()!.count }
-  var data: Data? { return pngData() }
+  var compressPngData: Data? { return pngData() }
+
+  func compressJpegData(quality: CGFloat = 1.0) -> Data? {
+    return jpegData(compressionQuality: quality)
+  }
 
   func resize(size: CGSize) -> UIImage {
     UIGraphicsBeginImageContext(size)

@@ -107,7 +107,7 @@ extension CameraView {
         photoSettings.isAutoContentAwareDistortionCorrectionEnabled = enableAutoDistortionCorrection
       }
 
-      photoOutput.capturePhoto(with: photoSettings, delegate: PhotoCaptureDelegate(promise: promise))
+      photoOutput.capturePhoto(with: photoSettings, delegate: PhotoCaptureDelegate(promise: promise, options: options))
 
       // Assume that `takePhoto` is always called with the same parameters, so prepare the next call too.
       photoOutput.setPreparedPhotoSettingsArray([photoSettings], completionHandler: nil)

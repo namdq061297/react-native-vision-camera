@@ -15,9 +15,11 @@ private var delegatesReferences: [NSObject] = []
 
 class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
   private let promise: Promise
+  private let options: NSDictionary
 
-  required init(promise: Promise) {
+  required init(promise: Promise, options: NSDictionary) {
     self.promise = promise
+    self.options = options
     super.init()
     delegatesReferences.append(self)
   }
@@ -52,8 +54,17 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
 
     do {
+      let usePng = options["usePng"] as? Bool
+      guard let usePng = usePng else {
+        try rotateImage.compressJpegData()?.write(to: url)
+        return
+      }
+      if usePng {
+        try rotateImage.compressPngData?.write(to: url)
+      } else {
+        try rotateImage.compressJpegData()?.write(to: url)
+      }
 //      try data.write(to: url)
-      try rotateImage.data?.write(to: url)
 
       let width = rotateImage.size.width
       let height = rotateImage.size.height
