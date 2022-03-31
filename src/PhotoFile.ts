@@ -46,6 +46,13 @@ export interface TakePhotoOptions {
    * @platform Android
    */
   skipMetadata?: boolean;
+
+  /**
+   * @defalt false
+   * 
+   * @platform IOS
+   */
+  usePng?: boolean;
 }
 
 /**
