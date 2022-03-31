@@ -50,7 +50,7 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     }
 
     guard let orientation = photo.metadata[kCGImagePropertyOrientation as String] as? NSNumber else {
-        promise.reject(error: .capture(.orientaionError))
+      promise.reject(error: .capture(.orientaionError))
       return
     }
 

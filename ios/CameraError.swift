@@ -249,6 +249,8 @@ enum CaptureError {
       return "Photo capture is disabled! Pass `photo={true}` to enable photo capture."
     case .aborted:
       return "The capture has been stopped before any input data arrived."
+    case .orientaionError:
+      return "Get orientation Camera error"
     case let .unknown(message: message):
       return message ?? "An unknown error occured while capturing a video/photo."
     }
