@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 private var delegatesReferences: [NSObject] = []
 
@@ -45,14 +46,17 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
 
     do {
       try data.write(to: url)
-      let exif = photo.metadata["{Exif}"] as? [String: Any]
-      let width = exif?["PixelXDimension"]
-      let height = exif?["PixelYDimension"]
+      let image = UIImage(data: data)
+      let width = image?.size.width
+      let height = image?.size.height
+//      let exif = photo.metadata["{Exif}"] as? [String: Any]
+//      let width = exif?["PixelXDimension"]
+//      let height = exif?["PixelYDimension"]
 
       promise.resolve([
         "path": tempFilePath,
-        "width": width as Any,
-        "height": height as Any,
+        "width": width,
+        "height": height,
         "isRawPhoto": photo.isRawPhoto,
         "metadata": photo.metadata,
         "thumbnail": photo.embeddedThumbnailPhotoFormat as Any,
