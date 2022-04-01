@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1866BD4927F5B9BE00706888 /* UIImage+rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866BD4827F5B9BE00706888 /* UIImage+rotate.swift */; };
 		1866BD4D27F6898A00706888 /* Window+orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866BD4C27F6898900706888 /* Window+orientation.swift */; };
+		1866BD4F27F714EF00706888 /* CameraView+Pause.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866BD4E27F714EF00706888 /* CameraView+Pause.swift */; };
 		B80C0E00260BDDF7001699AB /* FrameProcessorPluginRegistry.mm in Sources */ = {isa = PBXBuildFile; fileRef = B80C0DFF260BDDF7001699AB /* FrameProcessorPluginRegistry.mm */; };
 		B80E06A0266632F000728644 /* AVAudioSession+updateCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80E069F266632F000728644 /* AVAudioSession+updateCategory.swift */; };
 		B8103E1C25FF553B007A1684 /* FrameProcessorUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8103E1B25FF553B007A1684 /* FrameProcessorUtils.mm */; };
@@ -82,6 +83,7 @@
 		134814201AA4EA6300B7C361 /* libVisionCamera.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVisionCamera.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1866BD4827F5B9BE00706888 /* UIImage+rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+rotate.swift"; sourceTree = "<group>"; };
 		1866BD4C27F6898900706888 /* Window+orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Window+orientation.swift"; sourceTree = "<group>"; };
+		1866BD4E27F714EF00706888 /* CameraView+Pause.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraView+Pause.swift"; sourceTree = "<group>"; };
 		B80416F026AB16E8000DEB6A /* VisionCameraScheduler.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VisionCameraScheduler.mm; sourceTree = "<group>"; };
 		B80416F126AB16F3000DEB6A /* VisionCameraScheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisionCameraScheduler.h; sourceTree = "<group>"; };
 		B80C0DFE260BDD97001699AB /* FrameProcessorPluginRegistry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameProcessorPluginRegistry.h; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				B887518125E0102000DB86D6 /* CameraViewManager.swift */,
 				B8DB3BC9263DC4D8004C18D7 /* RecordingSession.swift */,
 				B887515C25E0102000DB86D6 /* PhotoCaptureDelegate.swift */,
+				1866BD4E27F714EF00706888 /* CameraView+Pause.swift */,
 				B887516125E0102000DB86D6 /* Extensions */,
 				B887517225E0102000DB86D6 /* Parsers */,
 				B887516D25E0102000DB86D6 /* React Utils */,
@@ -388,6 +391,7 @@
 				B887518625E0102000DB86D6 /* CameraView+RecordVideo.swift in Sources */,
 				B81BE1BF26B936FF002696CC /* AVCaptureDevice.Format+videoDimensions.swift in Sources */,
 				B8DB3BCA263DC4D8004C18D7 /* RecordingSession.swift in Sources */,
+				1866BD4F27F714EF00706888 /* CameraView+Pause.swift in Sources */,
 				1866BD4D27F6898A00706888 /* Window+orientation.swift in Sources */,
 				B88751A225E0102000DB86D6 /* AVCaptureColorSpace+descriptor.swift in Sources */,
 				B887518925E0102000DB86D6 /* Collection+safe.swift in Sources */,

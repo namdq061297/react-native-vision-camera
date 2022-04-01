@@ -60,7 +60,7 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     } else {
       previewSize = CGSize(width: previewFrame.size.width, height: previewFrame.size.height)
     }
-      ReactLogger.log(level: .info, message: "previewSize = \(previewSize   )")
+    ReactLogger.log(level: .info, message: "previewSize = \(previewSize)")
     let cropRect = CGRect(x: 0, y: 0, width: rotateImage.width, height: rotateImage.height)
     let croppedSize = AVMakeRect(aspectRatio: previewSize, insideRect: cropRect)
     ReactLogger.log(level: .info, message: "croppedSize = \(croppedSize.size)")

@@ -62,4 +62,7 @@ RCT_EXTERN_METHOD(focus:(nonnull NSNumber *)node point:(NSDictionary *)point res
 
 RCT_EXTERN_METHOD(getAvailableVideoCodecs:(nonnull NSNumber *)node fileType:(NSString *)fileType resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject);
 
+RCT_EXTERN_METHOD(stopCamera:(nonnull NSNumber *)node resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject);
+RCT_EXTERN_METHOD(resumeCamera:(nonnull NSNumber *)node resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject);
+
 @end

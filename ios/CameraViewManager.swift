@@ -172,6 +172,18 @@ final class CameraViewManager: RCTViewManager {
     }
   }
 
+  @objc
+  final func stopCamera(_ node: NSNumber, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    let component = getCameraView(withTag: node)
+    component.stopCamera(promise: Promise(resolver: resolve, rejecter: reject))
+  }
+
+  @objc
+  final func resumeCamera(_ node: NSNumber, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    let component = getCameraView(withTag: node)
+    component.resumeCamera(promise: Promise(resolver: resolve, rejecter: reject))
+  }
+
   // MARK: Private
 
   private func getCameraView(withTag tag: NSNumber) -> CameraView {

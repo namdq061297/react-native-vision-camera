@@ -126,6 +126,40 @@ export class Camera extends React.PureComponent<CameraProps> {
   }
 
   /**
+   * Pause camera
+   * 
+   * @throws {@linkcode CameraCaptureError} When any kind of error occured while capturing the photo. Use the {@linkcode CameraCaptureError.code | code} property to get the actual error
+   *  @example
+   * ```ts
+   * await camera.current.stopCamera()
+   * ```
+   */
+  public async stopCamera(): Promise<void> {
+    try {
+      return await CameraModule.stopCamera(this.handle);
+    } catch (e) {
+      throw tryParseNativeCameraError(e);
+    }
+  }
+
+  /**
+   * Resume camera
+   * 
+   * @throws {@linkcode CameraCaptureError} When any kind of error occured while capturing the photo. Use the {@linkcode CameraCaptureError.code | code} property to get the actual error
+   *  @example
+   * ```ts
+   * await camera.current.resumeCamera()
+   * ```
+   */
+  public async resumeCamera(): Promise<void> {
+    try {
+      return await CameraModule.resumeCamera(this.handle);
+    } catch (e) {
+      throw tryParseNativeCameraError(e);
+    }
+  }
+
+  /**
    * Take a snapshot of the current preview view.
    *
    * This can be used as an alternative to {@linkcode Camera.takePhoto | takePhoto()} if speed is more important than quality
