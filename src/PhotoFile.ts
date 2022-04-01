@@ -53,6 +53,11 @@ export interface TakePhotoOptions {
    * @platform IOS
    */
   usePng?: boolean;
+
+  /**
+   * optional
+   */
+  width?: number;
 }
 
 /**

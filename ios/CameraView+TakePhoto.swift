@@ -25,6 +25,8 @@ struct TakePhotoOptions {
 extension CameraView {
   func takePhoto(options: NSDictionary, promise: Promise) {
     let videoPreviewLayerOrientation = videoPreviewLayer.connection?.videoOrientation
+    let previewFrame = videoPreviewLayer.frame
+
     cameraQueue.async {
       guard let photoOutput = self.photoOutput,
             let videoDeviceInput = self.videoDeviceInput else {
@@ -107,7 +109,7 @@ extension CameraView {
         photoSettings.isAutoContentAwareDistortionCorrectionEnabled = enableAutoDistortionCorrection
       }
 
-      photoOutput.capturePhoto(with: photoSettings, delegate: PhotoCaptureDelegate(promise: promise, options: options))
+      photoOutput.capturePhoto(with: photoSettings, delegate: PhotoCaptureDelegate(promise: promise, options: options, previewFrame: previewFrame))
 
       // Assume that `takePhoto` is always called with the same parameters, so prepare the next call too.
       photoOutput.setPreparedPhotoSettingsArray([photoSettings], completionHandler: nil)
