@@ -69,21 +69,30 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
       promise.reject(error: .capture(.fileError))
       return
     }
+    ReactLogger.log(level: .info, message: "Before rotate 1------)")
+    ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
     rotateImage = UIImage(cgImage: cropCGImage, scale: rotateImage.scale, orientation: rotateImage.imageOrientation)
+    ReactLogger.log(level: .info, message: "After rotate 1------)")
+    ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
     if let customWidth = options["width"] as? NSNumber {
       var width = CGFloat(truncating: customWidth)
       width /= UIScreen.main.scale
       let scaleRatio = width / CGFloat(rotateImage.size.width)
+      ReactLogger.log(level: .info, message: "scaleRatio = \(scaleRatio)")
       let size = CGSize(width: width, height: CGFloat(roundf(Float(rotateImage.size.height * scaleRatio))))
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        rotateImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        guard let newImage = newImage else {
-            promise.reject(error: .capture(.fileError))
-            return
-        }
-        rotateImage = UIImage(cgImage: newImage.cgImage!, scale: 1.0, orientation: newImage.imageOrientation)
+      UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+      rotateImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+      let newImage = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+      guard let newImage = newImage else {
+        promise.reject(error: .capture(.fileError))
+        return
+      }
+      ReactLogger.log(level: .info, message: "Before rotate 2------)")
+      ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
+      rotateImage = UIImage(cgImage: newImage.cgImage!, scale: 1.0, orientation: newImage.imageOrientation)
+      ReactLogger.log(level: .info, message: "After rotate 2------)")
+      ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
     }
 
     do {
