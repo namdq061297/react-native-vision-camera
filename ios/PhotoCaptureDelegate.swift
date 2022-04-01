@@ -72,7 +72,7 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
 //    }
 //    ReactLogger.log(level: .info, message: "Before rotate 1------)")
 //    ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
-    let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
+    var rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
     ReactLogger.log(level: .info, message: "After rotate 1------)")
     ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
     if let customWidth = options["width"] as? NSNumber {
