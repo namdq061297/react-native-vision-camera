@@ -53,25 +53,26 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
       return
     }
 
-//    let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
-    var rotateImage = image
-    var previewSize: CGSize
-    if UIWindow.isLandscape {
-      previewSize = CGSize(width: previewFrame.size.width, height: previewFrame.size.height)
-    } else {
-      previewSize = CGSize(width: previewFrame.size.height, height: previewFrame.size.width)
-    }
-    let cropRect = CGRect(x: 0, y: 0, width: rotateImage.width, height: rotateImage.height)
-    let croppedSize = AVMakeRect(aspectRatio: previewSize, insideRect: cropRect)
-    let takenCGImage = rotateImage.cgImage
-    let cropCGImage = takenCGImage?.cropping(to: croppedSize)
-    guard let cropCGImage = cropCGImage else {
-      promise.reject(error: .capture(.fileError))
-      return
-    }
-    ReactLogger.log(level: .info, message: "Before rotate 1------)")
-    ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
-    rotateImage = UIImage(cgImage: cropCGImage, scale: rotateImage.scale, orientation: rotateImage.imageOrientation)
+    let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
+
+//    var rotateImage = image
+//    var previewSize: CGSize
+//    if UIWindow.isLandscape {
+//      previewSize = CGSize(width: previewFrame.size.width, height: previewFrame.size.height)
+//    } else {
+//      previewSize = CGSize(width: previewFrame.size.height, height: previewFrame.size.width)
+//    }
+//    let cropRect = CGRect(x: 0, y: 0, width: rotateImage.width, height: rotateImage.height)
+//    let croppedSize = AVMakeRect(aspectRatio: previewSize, insideRect: cropRect)
+//    let takenCGImage = rotateImage.cgImage
+//    let cropCGImage = takenCGImage?.cropping(to: croppedSize)
+//    guard let cropCGImage = cropCGImage else {
+//      promise.reject(error: .capture(.fileError))
+//      return
+//    }
+//    ReactLogger.log(level: .info, message: "Before rotate 1------)")
+//    ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
+    let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
     ReactLogger.log(level: .info, message: "After rotate 1------)")
     ReactLogger.log(level: .info, message: "rotateImage.width = \(rotateImage.size.width) - rotateImage.height = \(rotateImage.size.height)")
     if let customWidth = options["width"] as? NSNumber {
