@@ -24,7 +24,7 @@ struct TakePhotoOptions {
 
 extension CameraView {
   func takePhoto(options: NSDictionary, promise: Promise) {
-//    let videoPreviewLayerOrientation = videoPreviewLayer.connection?.videoOrientation
+    let videoPreviewLayerOrientation = videoPreviewLayer.connection?.videoOrientation
     let previewFrame = videoPreviewLayer.frame
 
     cameraQueue.async {
@@ -38,9 +38,9 @@ extension CameraView {
           return
         }
       }
-//      if let photoOutputConnection = self.photoOutput?.connection(with: .video) {
-//        photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
-//      }
+      if let photoOutputConnection = self.photoOutput?.connection(with: .video) {
+        photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
+      }
 
       ReactLogger.log(level: .info, message: "Capturing photo...")
 

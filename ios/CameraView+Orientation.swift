@@ -44,7 +44,7 @@ extension CameraView {
 
       self.videoPreviewLayer.connection?.setInterfaceOrientation(self.inputOrientation)
 
-      self.cameraQueue.async {
+//      self.cameraQueue.async {
         // Run those updates on cameraQueue since they can be blocking.
         self.captureSession.outputs.forEach { output in
           output.connections.forEach { connection in
@@ -55,7 +55,7 @@ extension CameraView {
             connection.setInterfaceOrientation(self.outputOrientation)
           }
         }
-      }
+//      }
     }
   }
 }

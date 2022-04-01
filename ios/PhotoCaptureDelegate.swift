@@ -54,8 +54,6 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     }
 
     var rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
-
-//    var rotateImage = image
     var previewSize: CGSize
     if UIWindow.isLandscape {
       previewSize = CGSize(width: previewFrame.size.height, height: previewFrame.size.width)
@@ -105,14 +103,8 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
       } else {
         try rotateImage.compressJpegData()?.write(to: url)
       }
-//      try data.write(to: url)
-
       let width = rotateImage.size.width
       let height = rotateImage.size.height
-//      let exif = photo.metadata["{Exif}"] as? [String: Any]
-//      let width = exif?["PixelXDimension"]
-//      let height = exif?["PixelYDimension"]
-
       promise.resolve([
         "path": tempFilePath,
         "width": width,
