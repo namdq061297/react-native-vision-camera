@@ -58,11 +58,11 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
 //    var rotateImage = image
     var previewSize: CGSize
     if UIWindow.isLandscape {
-      previewSize = CGSize(width: previewFrame.size.width, height: previewFrame.size.height)
-    } else {
       previewSize = CGSize(width: previewFrame.size.height, height: previewFrame.size.width)
+    } else {
+      previewSize = CGSize(width: previewFrame.size.width, height: previewFrame.size.height)
     }
-    ReactLogger.log(level: .info, message: "previewSize = \(previewSize.size)")
+      ReactLogger.log(level: .info, message: "previewSize = \(previewSize   )")
     let cropRect = CGRect(x: 0, y: 0, width: rotateImage.width, height: rotateImage.height)
     let croppedSize = AVMakeRect(aspectRatio: previewSize, insideRect: cropRect)
     ReactLogger.log(level: .info, message: "croppedSize = \(croppedSize.size)")
