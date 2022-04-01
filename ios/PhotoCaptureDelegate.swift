@@ -53,7 +53,7 @@ class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
       return
     }
 
-    let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
+//    let rotateImage = UIImage.rotateCameraImageToProperOrientation(imageSource: image)
 
 //    var rotateImage = image
 //    var previewSize: CGSize
