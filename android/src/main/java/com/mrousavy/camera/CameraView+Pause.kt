@@ -6,6 +6,7 @@ import android.util.Log
 @SuppressLint("RestrictedApi")
 fun CameraView.stopCamera() {
   Log.e(CameraView.TAG, "stopCamera")
+  cameraProvider?.unbindAll()
 }
 
 @SuppressLint("RestrictedApi")

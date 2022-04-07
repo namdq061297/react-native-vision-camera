@@ -110,6 +110,7 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
       lastFrameProcessorPerformanceEvaluation = System.currentTimeMillis()
       frameProcessorPerformanceDataCollector.clear()
     }
+  var cameraProvider: ProcessCameraProvider? = null
 
   // private properties
   private var isMounted = false
@@ -361,14 +362,14 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
         Log.i(TAG, "Configuring session with Camera ID $cameraId and default format options...")
 
       // Used to bind the lifecycle of cameras to the lifecycle owner
-      val cameraProvider = ProcessCameraProvider.getInstance(reactContext).await()
+      cameraProvider = ProcessCameraProvider.getInstance(reactContext).await()
 
       var cameraSelector = CameraSelector.Builder().byID(cameraId!!).build()
 
       val tryEnableExtension: (suspend (extension: Int) -> Unit) = lambda@ { extension ->
         if (extensionsManager == null) {
           Log.i(TAG, "Initializing ExtensionsManager...")
-          extensionsManager = ExtensionsManager.getInstanceAsync(context, cameraProvider).await()
+          extensionsManager = ExtensionsManager.getInstanceAsync(context, cameraProvider!!).await()
         }
         if (extensionsManager!!.isExtensionAvailable(cameraSelector, extension)) {
           Log.i(TAG, "Enabling extension $extension...")
@@ -449,7 +450,7 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
       videoCapture = null
       imageCapture = null
       imageAnalysis = null
-      cameraProvider.unbindAll()
+      cameraProvider?.unbindAll()
 
       // Bind use cases to camera
       val useCases = ArrayList<UseCase>()
@@ -498,7 +499,7 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
 
       preview = previewBuilder.build()
       Log.i(TAG, "Attaching ${useCases.size} use-cases...")
-      camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, *useCases.toTypedArray())
+      camera = cameraProvider?.bindToLifecycle(this, cameraSelector, preview, *useCases.toTypedArray())
       preview!!.setSurfaceProvider(previewView.surfaceProvider)
 
       minZoom = camera!!.cameraInfo.zoomState.value?.minZoomRatio ?: 1f
