@@ -431,24 +431,19 @@ class CameraViewModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun stopCamera(viewTag: Int, promise: Promise) {
-    coroutineScope.launch {
-      withPromise(promise) {
-        val view = findCameraView(viewTag)
-        view.stopCamera()
-        return@withPromise null
-      }
+    withPromise(promise) {
+      val view = findCameraView(viewTag)
+      view.stopCamera()
+      return@withPromise null
     }
   }
 
   @ReactMethod
   fun resumeCamera(viewTag: Int, promise: Promise) {
-    coroutineScope.launch {
-      withPromise(promise) {
-        val view = findCameraView(viewTag)
-        view.resumeCamera()
-        return@withPromise null
-      }
+    withPromise(promise) {
+      val view = findCameraView(viewTag)
+      view.resumeCamera()
+      return@withPromise null
     }
-
   }
 }

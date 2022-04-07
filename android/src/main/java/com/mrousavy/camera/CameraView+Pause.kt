@@ -6,7 +6,7 @@ import android.os.Looper
 import android.util.Log
 
 @SuppressLint("RestrictedApi")
-suspend fun CameraView.stopCamera() {
+fun CameraView.stopCamera() {
   Log.e(CameraView.TAG, "stopCamera")
   Handler(Looper.getMainLooper()).post(Runnable {
     cameraProvider?.unbindAll()
@@ -16,6 +16,6 @@ suspend fun CameraView.stopCamera() {
 }
 
 @SuppressLint("RestrictedApi")
-suspend fun CameraView.resumeCamera() {
+fun CameraView.resumeCamera() {
   Log.e(CameraView.TAG, "resumeCamera")
 }
