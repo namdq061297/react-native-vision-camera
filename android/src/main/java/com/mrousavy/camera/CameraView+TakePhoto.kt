@@ -1,6 +1,8 @@
 package com.mrousavy.camera
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.hardware.camera2.*
 import android.util.Log
@@ -14,7 +16,9 @@ import com.facebook.react.bridge.WritableMap
 import com.mrousavy.camera.utils.*
 import kotlinx.coroutines.*
 import java.io.File
+import java.nio.ByteBuffer
 import kotlin.system.measureTimeMillis
+
 
 @SuppressLint("UnsafeOptInUsageError")
 suspend fun CameraView.takePhoto(options: ReadableMap): WritableMap = coroutineScope {
@@ -101,12 +105,14 @@ suspend fun CameraView.takePhoto(options: ReadableMap): WritableMap = coroutineS
   val rotate = photo.imageInfo.rotationDegrees
   val matrix = Matrix()
   matrix.postRotate(rotate.toFloat())
+  val originalBitmap = imageProxyToBitmap(photo)
+  val rotateBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, false)
   Log.e(CameraView.TAG, "rotate = $rotate");
   Log.e(CameraView.TAG, "options.width = ${options.getDouble("width")}")
   val map = Arguments.createMap()
   map.putString("path", file.absolutePath)
-  map.putInt("width", photo.width)
-  map.putInt("height", photo.height)
+  map.putInt("width", rotateBitmap.width)
+  map.putInt("height", rotateBitmap.height)
   map.putBoolean("isRawPhoto", photo.isRaw)
 
   val metadata = exif?.buildMetadataMap()
@@ -120,3 +126,11 @@ suspend fun CameraView.takePhoto(options: ReadableMap): WritableMap = coroutineS
   Log.i(CameraView.TAG_PERF, "Finished function execution in ${(endFunc - startFunc) / 1_000_000}ms")
   return@coroutineScope map
 }
+
+private fun imageProxyToBitmap(image: ImageProxy): Bitmap {
+  val buffer: ByteBuffer = image.planes[0].buffer
+  val bytes = ByteArray(buffer.remaining())
+  buffer.get(bytes)
+  return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, null)
+}
+
