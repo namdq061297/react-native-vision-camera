@@ -1,10 +1,9 @@
 package com.mrousavy.camera
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
+import android.graphics.*
 import android.hardware.camera2.*
+import android.media.Image
 import android.util.Log
 import androidx.camera.camera2.interop.Camera2CameraInfo
 import androidx.camera.core.ImageCapture
@@ -15,6 +14,7 @@ import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableMap
 import com.mrousavy.camera.utils.*
 import kotlinx.coroutines.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.ByteBuffer
 import kotlin.system.measureTimeMillis
@@ -105,7 +105,7 @@ suspend fun CameraView.takePhoto(options: ReadableMap): WritableMap = coroutineS
   val rotate = photo.imageInfo.rotationDegrees
   val matrix = Matrix()
   matrix.postRotate(rotate.toFloat())
-  val originalBitmap = imageProxyToBitmap(photo)
+  val originalBitmap = photo.image!!.toBitmap()
   val rotateBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, false)
   Log.e(CameraView.TAG, "rotate = $rotate");
   Log.e(CameraView.TAG, "options.width = ${options.getDouble("width")}")
@@ -127,10 +127,11 @@ suspend fun CameraView.takePhoto(options: ReadableMap): WritableMap = coroutineS
   return@coroutineScope map
 }
 
-private fun imageProxyToBitmap(image: ImageProxy): Bitmap {
-  val buffer: ByteBuffer = image.planes[0].buffer
-  val bytes = ByteArray(buffer.remaining())
+fun Image.toBitmap(): Bitmap {
+  val buffer = planes[0].buffer
+  buffer.rewind()
+  val bytes = ByteArray(buffer.capacity())
   buffer.get(bytes)
-  return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, null)
+  return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 }
 
