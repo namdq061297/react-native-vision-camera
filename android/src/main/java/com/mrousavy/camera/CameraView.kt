@@ -474,13 +474,14 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
       if (enableFrameProcessor) {
         Log.i(TAG, "Adding ImageAnalysis use-case...")
         imageAnalysis = imageAnalysisBuilder.build().apply {
-          setAnalyzer(cameraExecutor, { image ->
+          setAnalyzer(cameraExecutor) { image ->
             val now = System.currentTimeMillis()
             val intervalMs = (1.0 / actualFrameProcessorFps) * 1000.0
             if (now - lastFrameProcessorCall > intervalMs) {
               lastFrameProcessorCall = now
 
-              val perfSample = frameProcessorPerformanceDataCollector.beginPerformanceSampleCollection()
+              val perfSample =
+                frameProcessorPerformanceDataCollector.beginPerformanceSampleCollection()
               frameProcessorCallback(image)
               perfSample.endPerformanceSampleCollection()
             }
@@ -490,7 +491,7 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
               // last evaluation was more than a second ago, evaluate again
               evaluateNewPerformanceSamples()
             }
-          })
+          }
         }
         useCases.add(imageAnalysis!!)
       }

@@ -375,4 +375,22 @@ class CameraViewModule(reactContext: ReactApplicationContext) : ReactContextBase
       promise.reject("NO_ACTIVITY", "No PermissionAwareActivity was found! Make sure the app has launched before calling this function.")
     }
   }
+
+  @ReactMethod
+  fun stopCamera(viewTag: Int, promise: Promise) {
+    withPromise(promise) {
+      val view = findCameraView(viewTag)
+      view.stopCamera()
+      return@withPromise null
+    }
+  }
+
+  @ReactMethod
+  fun resumeCamera(viewTag: Int, promise: Promise) {
+    withPromise(promise) {
+      val view = findCameraView(viewTag)
+      view.resumeCamera()
+      return@withPromise null
+    }
+  }
 }
