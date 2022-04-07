@@ -378,19 +378,15 @@ class CameraViewModule(reactContext: ReactApplicationContext) : ReactContextBase
 
   @ReactMethod
   fun stopCamera(viewTag: Int, promise: Promise) {
-    withPromise(promise) {
-      val view = findCameraView(viewTag)
-      view.stopCamera()
-      return@withPromise null
-    }
+    val view = findCameraView(viewTag)
+    view.stopCamera()
+    promise.resolve(null)
   }
 
   @ReactMethod
   fun resumeCamera(viewTag: Int, promise: Promise) {
-    withPromise(promise) {
-      val view = findCameraView(viewTag)
-      view.resumeCamera()
-      return@withPromise null
-    }
+    val view = findCameraView(viewTag)
+    view.resumeCamera()
+    promise.resolve(null)
   }
 }
