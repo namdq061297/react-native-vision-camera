@@ -1,6 +1,7 @@
 package com.mrousavy.camera
 
 import android.annotation.SuppressLint
+import android.graphics.Matrix
 import android.hardware.camera2.*
 import android.util.Log
 import androidx.camera.camera2.interop.Camera2CameraInfo
@@ -95,6 +96,13 @@ suspend fun CameraView.takePhoto(options: ReadableMap): WritableMap = coroutineS
     exif = if (skipMetadata) null else ExifInterface(file)
   }
 
+  Log.e(CameraView.TAG, "photo.width = ${photo.width}")
+  Log.e(CameraView.TAG, "photo.height = ${photo.height}")
+  val rotate = photo.imageInfo.rotationDegrees
+  val matrix = Matrix()
+  matrix.postRotate(rotate.toFloat())
+  Log.e(CameraView.TAG, "rotate = $rotate");
+  Log.e(CameraView.TAG, "options.width = ${options.getDouble("width")}")
   val map = Arguments.createMap()
   map.putString("path", file.absolutePath)
   map.putInt("width", photo.width)
