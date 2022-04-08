@@ -484,6 +484,7 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
               val perfSample =
                 frameProcessorPerformanceDataCollector.beginPerformanceSampleCollection()
               frameProcessorCallback(image)
+              Log.e(TAG, "From base class with width = ${image.width} - height = ${image.height}")
               perfSample.endPerformanceSampleCollection()
             }
             image.close()

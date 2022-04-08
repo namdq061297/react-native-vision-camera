@@ -11,8 +11,6 @@ fun CameraView.stopCamera() {
   Handler(Looper.getMainLooper()).post(Runnable {
     cameraProvider?.unbindAll()
   })
-
-
 }
 
 @SuppressLint("RestrictedApi")
