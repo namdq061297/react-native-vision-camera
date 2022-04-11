@@ -222,6 +222,12 @@ extension CameraView: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAud
 
             let perfSample = self.frameProcessorPerformanceDataCollector.beginPerformanceSampleCollection()
             let frame = Frame(buffer: sampleBuffer, orientation: self.bufferOrientation)
+            if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+              let width = CVPixelBufferGetWidth(imageBuffer)
+              let height = CVPixelBufferGetHeight(imageBuffer)
+              ReactLogger.log(level: .info, message: "core process with width = \(width) - height = \(height)")
+            }
+
             frameProcessor(frame)
             perfSample.endPerformanceSampleCollection()
 
