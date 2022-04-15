@@ -314,6 +314,7 @@ class CameraView(context: Context, private val frameProcessorThread: ExecutorSer
     //  I need to use CoroutineScope.launch because of the suspend fun [configureSession]
     coroutineScope.launch {
       try {
+        Log.e(TAG, "Update Component")
         val shouldReconfigureSession = changedProps.containsAny(propsThatRequireSessionReconfiguration)
         val shouldReconfigureZoom = shouldReconfigureSession || changedProps.contains("zoom")
         val shouldReconfigureTorch = shouldReconfigureSession || changedProps.contains("torch")
